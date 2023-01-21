@@ -6,8 +6,8 @@ PRINTER_PID=0x0061
 
 # Stop Container (if running)
 echo "Stopping current container..."
-/usr/bin/docker stop cups-docker
-/usr/bin/docker rm cups-docker
+podman stop cups-docker
+podman rm cups-docker
 
 # Get Printer address on host, ex : /dev/bus/usb/002/008
 echo "Getting printer info..."
@@ -30,7 +30,7 @@ if [ -z ${PRINTER_ADDRESS+x} ]; then
         echo "Brother printer cannot be found, cannot run container";
 else
         echo "Running container for Brother printer ${PRINTER_MODEL} at address ${PRINTER_ADDRESS}..."
-        exec env PRINTER_ADDRESS="${PRINTER_ADDRESS}" /usr/bin/docker-compose -f /path/to/docker-compose.yml up
+        exec env PRINTER_ADDRESS="${PRINTER_ADDRESS}" podman-compose -f /path/to/docker-compose.yml up
 fi
 
 exit 0
